@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     TabHost tabHost;
     ViewPager pager;
     TabsAdapter mAdapter;
+    public static final String TAG ="MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +95,22 @@ public class MainActivity extends AppCompatActivity
                 (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Log.d(TAG, "onQueryTextSubmit " + s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                Log.d(TAG, "onQueryTextChange "+s) ;
+                return false;
+            }
+        });
+
+
 
         return true;
     }
